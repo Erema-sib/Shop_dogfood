@@ -99,6 +99,14 @@
 	display: flex;
 }
 
+.card_favorite svg {
+	fill: #FFFFFF;
+}
+
+.card_favorite_is-active svg {
+	fill: #F44459;
+}
+
 .card_cart {
 	margin-top: auto;
 }

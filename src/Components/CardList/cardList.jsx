@@ -4,12 +4,12 @@ import './style.css';
 
 
 
-const CardList = ({goods}) => {
+const CardList = ({goods, onProductLike, currentUser}) => {
   return (
     <div className="cards">
           {
 
-            goods.map(( i, index) => <Card key={index} {...i}/>)
+            goods.map(( i, index) => <Card key={i._id} {...i}  onProductLike={onProductLike} currentUser={currentUser}/>)
 
           // 2ой вариант 
           // datajson.map(function (i) {
