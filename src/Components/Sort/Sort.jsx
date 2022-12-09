@@ -1,14 +1,10 @@
-import './Apps.css';
+import "./style.css";
 
 
-
-
-function Sort() {
-  return (
-  <>
-     
-  </>
-  )
-}
+const Sort = () => {
+	return (
+		null
+	);
+};
 
 export default Sort;
