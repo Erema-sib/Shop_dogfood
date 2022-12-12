@@ -1,27 +1,30 @@
-import { useContext } from 'react';
-import { CardContext } from '../../Context/cardContext';
-import Card from '../Card/card';
-import './style.css';
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ContextUser } from "../../Context/ContextUser";
+import Card from "../Card/card";
+import { NotFound } from "../NotFound/NotFound";
+import "./style.css";
 
-
-
-
-const CardList = () => {
-  const {cards} = useContext(CardContext);
+const CardList = ({ cards }) => {
+  const navigate = useNavigate();
+  const {isLoading} = useContext(ContextUser);
+  // console.log(cards);
   return (
-    <div className="cards">
-          {
-
-          cards.map(( i, index) => <Card key={i._id} {...i}/>)
-
-          // 2ой вариант 
-          // datajson.map(function (i) {
-          //   return (
-          //     <Card {...i} /> //спред оператор ...i берёт пропсы из переменной Card и автоматически подставляет в разметку  со вcеми данными
-          }      
-        </div>
-  
-     );
+    <>
+      {!cards.length && !isLoading && (
+        <NotFound
+          buttonText="Назад"
+          title="По вашему запросу ничего не найдено"
+          buttonAction={() => navigate(-1)}
+        />
+      )}
+      <div className="cards">
+        {cards.map((i, index) => (
+          <Card key={i._id} {...i} />
+        ))}
+      </div>
+    </>
+  );
 };
 
 export default CardList;

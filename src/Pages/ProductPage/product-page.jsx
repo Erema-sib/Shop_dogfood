@@ -1,53 +1,40 @@
-import Header from "../../Components/Header/header";
-import Logo from "../../Components/Logotype/Logo";
-import Search from "../../Components/Search/Search";
-import Sort from "../../Components/Sort/Sort";
 import Spinner from "../../Components/Spinner/index";
-import Footer from "../../Components/Footer/footer";
 import { useContext, useEffect, useState } from "react";
 import api from "../../Components/Utils/Api"
-import { isLiked } from "../../Components/Utils/product_card"
 import Product from "../../Components/Product/product";
 import { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { NotFound } from "../../Components/NotFound/NotFound";
 import { ContextUser } from "../../Context/ContextUser";
 import { CardContext } from "../../Context/cardContext";
+import { useApi } from "../../Hooks/useApi";
 
 
 // const ID_PRODUCT = "622c77e877d63f6e70967d22";
 
-export const ProductPage = ({ isLoading }) => {
+export const ProductPage = () => {
   const { productId } = useParams();
-  const [product, SetProduct ] = useState(null);
-  const [errorState, setErrorState] = useState(null);
-  
   const {handleLike} = useContext(CardContext);
 
 
+  const handleGetProduct = useCallback(() => api.getProductById(productId),[productId]);
+
+  const {data: product, setData: setProduct, loading: isLoading, error: errorState} = useApi(handleGetProduct);
+  
+  
   const handleProductLike = useCallback( () => {
     handleLike(product).then((updateProduct) => {
-      SetProduct(updateProduct);
+      setProduct(updateProduct);
     });
-  },[product, handleLike])
+  },[product, handleLike, setProduct])
 
-  useEffect(() => {
-    // setIsLoading(true);
- api.getProductById(productId)
-      .then((productData) => {
-        // setCurrentUser(userData);
-        SetProduct(productData);
-      })
-      .catch((error) => setErrorState(error))
-      // .finally(() => {
-      //   setIsLoading(false);
-      // });
-  }, []);
+
+  
   
   return (
     <>
         <div className="content_cards">
-            {isLoading ? <Spinner/> : !errorState && <Product {...product} SetProduct={SetProduct} onProductLike={handleProductLike}/>}
+            {isLoading ? <Spinner/> : !errorState && <Product {...product} setProduct={setProduct} onProductLike={handleProductLike}/>}
             
             {!isLoading && errorState && <NotFound title="Ошибка запроса,попробуйте снова."/>}
             </div>

@@ -1,25 +1,25 @@
 import './style.css';
-
+import { ReactComponent as FavoriteImg } from "./image/img.svg"
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CardContext } from '../../Context/cardContext';
 
 
 
 function Header({children, user, on_Update_User}) {
+  const {favorites} = useContext(CardContext);
 
-  // const handleClickButtonEdit = (e) => {
-  //   e.preventDefault();
-  //   on_Update_User({name: "Олег", about: "Обучающийся"})
-  // }
-
-  return (
-  <header className="header">
-    <div className="container">
-     {/* {user.email && <span>{user.email}</span>}
-     {user.name && <span>{user.name}</span>}  */}
-
-     {/* <button className="btn" onClick={handleClickButtonEdit}>Изменить</button> */}
- 
-      <div className="header_wrapper">
+    return (
+       <header className="header">
+         <div className="container">
+         <div className="header_wrapper">
         {children}
+        <div className="iconsMenu">
+            <Link className="favoritesLink" to="/favorites">
+                 <FavoriteImg/>
+                 {favorites.length !== 0 && <span className="iconBubble">{favorites.length}</span>}
+            </Link>
+        </div>
       </div>
     </div>
      

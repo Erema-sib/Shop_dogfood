@@ -7,8 +7,10 @@ import { ReactComponent as Save } from "./image/save.svg";
 import truck from "./image/truck.svg";
 import quality from "./image/quality.svg";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ContextUser } from "../../Context/ContextUser";
+import { ContentHeader } from "../ContentHeader/content-header";
+import { RatingStar } from "../RatingStar/rating";
 
 export const Product = ({
   onProductLike,
@@ -24,7 +26,8 @@ export const Product = ({
   _id,
 }) => {
   const {user: currentUser} = useContext(ContextUser);
-
+  const [rating, setRating] = useState(4);
+  
   const navigate = useNavigate();
   const discount_price = calcDiscountPrice(price, discount);
   const isLike = isLiked(likes, currentUser?._id);
@@ -32,16 +35,13 @@ export const Product = ({
   
   return (
     <>
+    <ContentHeader title={name}>
       <div>
-        <a href="#" className="button-back" onClick={() => navigate(-1)}>
-          Назад
-        </a>
-        <h1 className="productTitle">{name}</h1>
-        <div>
-          <span>Артикул:</span> <b>1118907</b>
-        </div>
+            <span>Артикул:</span> <b>1118907</b>
+            <RatingStar rating={rating} setRating={setRating} isEditable/>
       </div>
-      <div className="product">
+    </ContentHeader>
+        <div className="product">
         <div className="imgWrapper">
           <img src={pictures} alt={`Здесь должно быть фото ${name}`} />
         </div>
@@ -49,7 +49,7 @@ export const Product = ({
           <span className={discount ? "oldPrice" : "price"}>
             {price}&nbsp;₽
           </span>
-          {discount && (
+          {discount !==0 && (
             <span className={cn("price", "card_price_type_discount")}>
               {discount_price}&nbsp;₽
             </span>
@@ -95,26 +95,26 @@ export const Product = ({
         <p className="subtitle" dangerouslySetInnerHTML = {descriptionHTML}></p>
         <h2 className="title">Характеристики</h2>
         <div className="grid">
-					<div className="naming">Вес</div>
-					<div className="description">1 шт 120-200 грамм</div>
-					<div className="naming">Цена</div>
-					<div className="description">490 Р за 100 грамм</div>
-					<div className="naming">Польза</div>
-					<div className="description">
-						<p>
-							Большое содержание аминокислот и микроэлементов оказывает
-							положительное воздействие на общий обмен веществ собаки.
-						</p>
-						<p>Способствуют укреплению десен и жевательных мышц.</p>
-						<p>
-							Развивают зубочелюстной аппарат, отвлекают собаку во время смены
-							зубов.
-						</p>
-						<p>
-							Имеет цельную волокнистую структуру, при разжевывание получается
-							эффект зубной щетки, лучше всего очищает клыки собак.
-						</p>
-						<p>Следует учесть высокую калорийность продукта.</p>
+                <div className="naming">Вес</div>
+                <div className="description">1 шт 120-200 грамм</div>
+                <div className="naming">Цена</div>
+                <div className="description">490 Р за 100 грамм</div>
+                <div className="naming">Польза</div>
+                <div className="description">
+                      <p>
+                        Большое содержание аминокислот и микроэлементов оказывает
+                        положительное воздействие на общий обмен веществ собаки.
+                      </p>
+                      <p>Способствуют укреплению десен и жевательных мышц.</p>
+                      <p>
+                        Развивают зубочелюстной аппарат, отвлекают собаку во время смены
+                        зубов.
+                      </p>
+                      <p>
+                        Имеет цельную волокнистую структуру, при разжевывание получается
+                        эффект зубной щетки, лучше всего очищает клыки собак.
+                      </p>
+                      <p>Следует учесть высокую калорийность продукта.</p>
 					</div>
 				</div>  
       </div>

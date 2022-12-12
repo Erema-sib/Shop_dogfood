@@ -3,7 +3,7 @@ import { ReactComponent as SearchIcon } from "./ic-search.svg";
 import { ReactComponent as CloseIcon } from "./ic-close-input.svg";
 import { useState } from "react";
 
-function Search({ onSubmit: onSubmit, onInput }) {
+function Search({ onSubmit: propsonSubmit, onInput }) {
   const [inputText, setInputText] = useState("");
   
   const handleInput = (e) => {
@@ -13,7 +13,7 @@ function Search({ onSubmit: onSubmit, onInput }) {
   
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    onSubmit(inputText);
+    propsonSubmit(inputText);
   }
 
   const handleClearInput = () => {

@@ -10,7 +10,7 @@
     "available": true,
     "stock": 10,
     "picture": "https://react-learning.ru/image-compressed/1.jpg",
-    "tags": ["new"]
+    "tags": ["new", "sale"]
   },
   {
     "name": "Куриные желудочки для собак",
@@ -22,7 +22,8 @@
     "isCart": false,
     "available": true,
     "stock": 10,
-    "picture": "https://react-learning.ru/image-compressed/2.jpg"
+    "picture": "https://react-learning.ru/image-compressed/2.jpg",
+    "tags":["привет", "пока"]
   },
   {
     "name": "Крупная говяжья сушено-вяленая жилка",
@@ -70,7 +71,8 @@
     "isCart": false,
     "available": true,
     "stock": 10,
-    "picture": "https://react-learning.ru/image-compressed/6.jpg"
+    "picture": "https://react-learning.ru/image-compressed/6.jpg",
+    "tag": "new"
   },
   {
     "name": "Копыто оленье",
@@ -83,7 +85,7 @@
     "available": true,
     "stock": 10,
     "picture": "https://react-learning.ru/image-compressed/7.jpg",
-    "tags": ["sale"]
+    "tag": ["sale"]
   },
   {
     "name": "Бараний рубец сушенный",

@@ -8,17 +8,17 @@
 	gap: 16px;
 }
 
-.sort__link {
+.sort_link {
 	text-decoration: none;
 	font-size: 14px;
 	line-height: 20px;
 	color: #7B8E98;
 }
 
-.sort__link_selected {
+.sort_link_selected {
 	color: #1A1A1A;
 }
 
-.sort__link:hover {
+.sort_link:hover {
 	color: #1A1A1A;
 }

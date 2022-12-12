@@ -16,7 +16,7 @@ const Footer = () => {
 			<div className="container">
 				<div className="footer_wrapper">
 					<div className="footer_col">
-						<Logo className="logo footer_logo" href="#" title="Логотип" aria-hidden={true} />
+						<Logo className="logo footer_logo" title="Логотип" aria-hidden={true} />
 						<p className="footer_copyright">© «Интернет-магазин DogFood.ru»</p>
 					</div>
 					<div className="footer_col">
