@@ -11,15 +11,15 @@ import { isLiked } from "../Utils/product_card";
 import { CatalogPage } from "../../Pages/CatalogPage/catalog-page";
 import { ProductPage } from "../../Pages/ProductPage/product-page";
 import { useCallback } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { ErrorNotFound } from "../../Pages/ErrorNotFound/error-not-found";
 import { ContextUser } from "../../Context/ContextUser";
 import { CardContext } from "../../Context/cardContext";
 import { FaqPage } from "../../Pages/FAQPage/faq-page";
 import { FavoritePage } from "../../Pages/FavoritePage/favorite-page";
-import Form from "../Form/form.jsx";
-import RegistrForm from "../Form/form-registr";
+import RegistrationForm from "../Form/form-registr";
 import WindowModal from "../WindowModal/window-modal";
+import { FormModal } from "../FormModal/form-modal";
 
 function App() {
   const [cards, SetCards] = useState([]);
@@ -29,9 +29,17 @@ function App() {
   const debounceSearchQuery = useDebounce(searchQuery, 400);
   const [favorites, setFavorites] = useState([]);
   const navigate = useNavigate();
+  const [currentSort, setCurrentSort] = useState("");
+
 
   const [isOpenModalWin, setisOpenModalWin] = useState(false);
 
+  const location = useLocation();
+
+  const bgLocation = location.state?.bgLocation;
+  const firstPath = location.state?.firstPath;
+
+  
   //фильтрует данные и устанавливает новые карточки
   const handleRequest = useCallback(() => {
     setIsLoading(true);
@@ -108,14 +116,33 @@ function App() {
   // }, [])
 
   
+  //Условия сортировки карточек
+    const sortProducts = (currentSort) => {
+    console.log(currentSort);
+    switch (currentSort) {
+      case "low":
+        SetCards(cards.sort((a,b) => b.price - a.price));
+      break;
+
+      case "cheap":
+        SetCards(cards.sort((a,b) => a.price - b.price));
+      break;
+
+      case "sale":
+        SetCards(cards.sort((a,b) => b.discount - a.discount));
+      break;
+
+      default:
+        SetCards(cards.sort((a,b) => a.price - b.price));
+        break;
+    }
+  }
+  
   
   return (
     <ContextUser.Provider value={{ user: currentUser, isLoading }}>
-      <CardContext.Provider value={{ cards, favorites, handleLike: handleProductLike }}>
-        <WindowModal active={isOpenModalWin} setActive={setisOpenModalWin}>
-            <RegistrForm/>
-        </WindowModal>
-        <button onClick={ () =>setisOpenModalWin(true)}>Войти</button>
+      <CardContext.Provider value={{ cards, favorites, currentSort, handleLike: handleProductLike, onSortProducts: sortProducts, setCurrentSort }}>
+        <FormModal/>
         <Header>
           <>
             <Logo className="logo logo_place_header" href="/" />
@@ -134,16 +161,53 @@ function App() {
         </Header>
         <main className="content container">
           <SearchInfo searchText={searchQuery} />
-          <Routes>
-            <Route index element={<CatalogPage/>} />
+          <Routes location={(bgLocation && {...bgLocation, pathname: firstPath}) || location}>
+            <Route index element={
+            <CatalogPage/>
+            } />
             <Route
               path="/product/:productId/"
               element={<ProductPage isLoading={isLoading} />}
             />
             <Route path="/faq" element={<FaqPage/>}/>
             <Route path="/favorites" element={<FavoritePage/>}/>
+
+            <Route path="/login" element={
+               <>
+                        Авторизация
+                        <Link to="/register">Зарегистрироваться</Link>
+               </>
+            }/>
+
+
+            <Route path="/register" element={
+               <WindowModal>
+                        Регистрация
+                        <Link to="/login">Войти</Link>
+               </WindowModal>
+            }/>
+
             <Route path="*" element={<ErrorNotFound/>}/>
           </Routes>
+
+          {bgLocation && (
+            <Routes>
+                <Route path="/login" element={
+               <WindowModal>
+                        Авторизация
+                        <Link to="/register" replace={true} state={{bgLocation: location, firstPath}}>Зарегистрироваться</Link>
+               </WindowModal>
+            }/>
+
+
+            <Route path="/register" element={
+               <WindowModal>
+                        Регистрация
+                        <Link to="/login" replace={true} state={{bgLocation: location, firstPath}}>Войти</Link>
+               </WindowModal>
+            }/>
+            </Routes>
+          )}
         </main>
 
         <Footer />

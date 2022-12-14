@@ -1,5 +1,6 @@
 import "./style.css";
 import { useForm } from "react-hook-form";
+import FormInput from "../FormInput/form-input";
 
 
 
@@ -17,8 +18,12 @@ function RegistrForm() {
             return (
             <form onSubmit={handleSubmit(callbackSubmit)}>
                 <h3>Регистрация</h3>
-                <input
+                <FormInput
                         {...register("name", {
+                            required: {
+                                value: true,
+                                message: "Имя пользователя обязательно"
+                            },
                             minLength: {
                                 value: 3,
                                 message: "Ошибка,нет такого имени"

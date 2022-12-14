@@ -8,7 +8,7 @@ import "./style.css";
 const CardList = ({ cards }) => {
   const navigate = useNavigate();
   const {isLoading} = useContext(ContextUser);
-  // console.log(cards);
+  //  console.log(cards);
   return (
     <>
       {!cards.length && !isLoading && (
