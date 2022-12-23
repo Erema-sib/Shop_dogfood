@@ -1,16 +1,16 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import CardList from "../../Components/CardList/cardList";
 import { ContentHeader } from "../../Components/ContentHeader/content-header";
 import Sort from "../../Components/Sort/Sort";
-import { CardContext } from "../../Context/cardContext";
+
 
 
 
 
 export const FavoritePage = () => {
-    const {favorites} = useContext(CardContext);
+    const favorites = useSelector (state => state.products.favProds)
   return (
-    <>
+    <div className="container container_inner">
       <ContentHeader title="Избранное"/>
 
    
@@ -18,6 +18,6 @@ export const FavoritePage = () => {
             <div className="content_cards">
               <CardList cards={favorites}/>
             </div>
-    </>
+    </div>
   );
 };

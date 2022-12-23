@@ -1,5 +1,6 @@
+
 const on_Responce = (res) => {
-    return res.ok ? res.json() : Promise.reject(`ERROR: ${res.status}`);
+    return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 }
 
 
@@ -32,6 +33,15 @@ class Api {
             method: "PATCH",
             headers: this.headers,
             body: JSON.stringify(dataUser)
+        }).then(on_Responce)
+    }
+
+    //Запрос для  создания отзыва
+    createReviewProduct(productId, reviewData) {
+        return fetch(`${this.baseUrl}/products/review/${productId}`, {
+            method: "POST",
+            headers: this.headers,
+            body: JSON.stringify(reviewData)
         }).then(on_Responce)
     }
 

@@ -7,8 +7,7 @@ import { useCallback } from "react";
 export const RatingStar = ({
   isEditable = false,
   rating,
-  setRating = null,
-  ...props
+  setRating = null
 }) => {
   const [ratingArray, setRatingArray] = useState(new Array(5).fill(<></>));
 
@@ -25,10 +24,10 @@ export const RatingStar = ({
                     onMouseLeave={() => changeDisplay(rating)}
                     onClick={() => changeRating(index + 1)}
         />
-      );
+      )
     });
-    setRatingArray(updateArray);
-  },[rating,]);
+    setRatingArray(updateArray)
+  },[rating, isEditable]);
 
   const changeDisplay = (rating) => {
          if(!isEditable) return
@@ -51,5 +50,5 @@ export const RatingStar = ({
         <span key={item}>{star}</span>
       ))}
     </div>
-  );
+  )
 };

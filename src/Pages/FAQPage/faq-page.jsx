@@ -46,12 +46,12 @@ const dataFAQ = [
 
 export const FaqPage = () => {
     return (
-   <>
+   <div className="container container_inner">
      <h1>Вы спросили,мы ответили:</h1>
      {
         dataFAQ.map((data, index) => <Accordion key={index} title={data.title}>{data.content}</Accordion>)
      }
-   </>
+   </div>
     )
 
 }

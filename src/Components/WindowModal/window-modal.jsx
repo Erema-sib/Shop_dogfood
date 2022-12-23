@@ -1,4 +1,4 @@
-import  "./style.css";
+import  "./index.scss";
 import cn from "classnames";
 import { useState } from "react";
 import { useEffect } from "react";

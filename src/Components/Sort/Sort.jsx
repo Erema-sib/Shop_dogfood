@@ -1,7 +1,7 @@
 import "./style.css";
 import cn from "classnames";
-import { useContext } from "react";
-import { CardContext } from "../../Context/cardContext";
+import { useDispatch, useSelector } from "react-redux";
+import { sortedProducts } from "../../storage/products/productsSlice";
 
 
 const tabs = [
@@ -18,15 +18,15 @@ const tabs = [
       title: "По скидке",
     },
     ];
-
+// Меняем контекст на селектор (сортировка)
 const Sort = () => {
-  const {currentSort, setCurrentSort, onSortProducts} = useContext(CardContext);
+  const dispatch = useDispatch();
+  const {currentSort} = useSelector(state => state.products);
 
 
 const handleClick = (e, tab) => {
 	e.preventDefault(); 
-	setCurrentSort(tab.id);
-	onSortProducts(tab.id);
+	dispatch(sortedProducts(tab.id))
 }
 	return (
 		<div className="sort content_sort">
