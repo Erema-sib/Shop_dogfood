@@ -9,8 +9,8 @@ function RegistrForm() {
   
     const {register, handleSubmit, formState} = useForm({mode: "onBlur"});
 
-    const callbackSubmit = (something) =>{
-        console.log(something);
+    const callbackSubmit = (data) =>{
+        console.log(data);
     }
 
     console.log(formState);

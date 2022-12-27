@@ -13,7 +13,7 @@ import { fetchChangeLikeProduct } from "../../storage/products/productsSlice";
 const Card = ({ name, price, _id, likes, discount, weight, description, pictures, tags }) => {
   
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.user.loading);
+  const isLoading = useSelector(state => state.user.getRequest);
   const currentUser = useSelector(state => state.user.data);
   const discount_price = calcDiscountPrice(price,discount);
  

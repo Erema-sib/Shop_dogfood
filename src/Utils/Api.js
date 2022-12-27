@@ -58,6 +58,30 @@ class Api {
         })
         .then(on_Responce)
     }
+
+
+// Три метода - авторизация,регистрация, проверка токена
+    register(bodyData) {
+        return fetch(`${this.baseUrl}/signup`, {
+            method: "POST",
+            headers: this.headers,
+            body: JSON.stringify(bodyData)
+        }).then(on_Responce)
+    }
+
+    authorize(bodyData) {
+        return fetch(`${this.baseUrl}/signin`, {
+            method: "POST",
+            headers: this.headers,
+            body: JSON.stringify(bodyData)
+        }).then(on_Responce)
+    }
+
+    checkToken(token) {
+        return fetch(`${this.baseUrl}/v2/group-7/users/me`, {
+            headers: {...this.headers, Authorization: `Bearer ${token}`},
+        }).then(on_Responce)
+    }
 }
 
 const config ={

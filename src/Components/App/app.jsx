@@ -19,9 +19,12 @@ import RegistrationComp from "../RegistrationComp/registration";
 import LoginComp from "../LoginComp/login";
 import PasswodrdRes from "../PasswordResettt/password-res";
 import HomePage from "../../Pages/HomePage/home-page";
-import { useDispatch } from "react-redux";
-import { fetchChangeLikeProduct, fetchProducts } from "../../storage/products/productsSlice";
-import { fetchUser } from "../../storage/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../../storage/products/productsSlice";
+import { fetchUser, userTokenCheck } from "../../storage/user/userSlice";
+import { LockProtecRoute } from "../LockProtecRoute/lock-route";
+
+
 
 function App() {
   const [cards, SetCards] = useState([]);
@@ -29,17 +32,12 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const debounceSearchQuery = useDebounce(searchQuery, 400);
-  const [favorites, setFavorites] = useState([]);
   const navigate = useNavigate();
-  const [currentSort, setCurrentSort] = useState("");
   const dispatch = useDispatch();
-
-
   const location = useLocation();
-
   const bgLocation = location.state?.bgLocation;
   const firstPath = location.state?.firstPath;
-
+  const loggedIn = useSelector(state => state.user.loggedIn);
   
   //фильтрует данные и устанавливает новые карточки
   const handleRequest = useCallback(() => {
@@ -55,12 +53,18 @@ function App() {
       });
   }, [searchQuery]);
 
+  
+  
+  
   useEffect(() => {
-       const userData = dispatch(fetchUser());
-       userData.then(() => {
-         dispatch(fetchProducts())
-       });
-  },[dispatch])
+       const token = JSON.parse(localStorage.getItem("token"));
+       const userData = dispatch(userTokenCheck(token));
+       if (token) {
+         userData.then(() => {
+           dispatch(fetchProducts());
+         })
+       }
+  },[dispatch, loggedIn])
 
   
   useEffect(() => {
@@ -111,7 +115,9 @@ function App() {
             <HomePage/>
             } />
             <Route path="/catalog" element={
-            <CatalogPage/>
+              <LockProtecRoute>
+                <CatalogPage/>
+              </LockProtecRoute>
             }/>
             <Route
               path="/product/:productId/"
@@ -121,19 +127,28 @@ function App() {
             <FaqPage/>}/>
             
             <Route path="/favorites" element={
-            <FavoritePage/>}/>
+              <LockProtecRoute>
+                        <FavoritePage/>
+              </LockProtecRoute>
+           }/>
 
             <Route path="/login" element={
-               <LoginComp/>
+               <LockProtecRoute onlyUnAuth>
+                 <LoginComp/>
+               </LockProtecRoute>
             }/>
 
 
             <Route path="/register" element={
-                        <RegistrationComp/>
+               <LockProtecRoute onlyUnAuth>
+                 <RegistrationComp/>
+               </LockProtecRoute>
             }/>
 
             <Route path="/reset-password" element={
-                        <PasswodrdRes/>
+              <LockProtecRoute onlyUnAuth>
+                <PasswodrdRes/>
+              </LockProtecRoute>
             }/>
 
             <Route path="*" element={<ErrorNotFound/>}/>
@@ -142,22 +157,28 @@ function App() {
           {bgLocation && (
             <Routes>
                 <Route path="/login" element={
-               <WindowModal>
-                        <LoginComp/>
-               </WindowModal>
-            }/>
+                  <LockProtecRoute onlyUnAuth>
+                        <WindowModal>
+                            <LoginComp/>
+                        </WindowModal>
+                  </LockProtecRoute>
+                }/>
 
 
             <Route path="/register" element={
-               <WindowModal>
-                        <RegistrationComp/>
-               </WindowModal>
+              <LockProtecRoute onlyUnAuth>
+                      <WindowModal>
+                          <RegistrationComp/>
+                      </WindowModal>
+              </LockProtecRoute>
             }/>
 
             <Route path="/reset-password" element={
-               <WindowModal>
-                        <PasswodrdRes/>
-               </WindowModal>
+              <LockProtecRoute onlyUnAuth>
+                      <WindowModal>
+                          <PasswodrdRes/>
+                      </WindowModal>
+              </LockProtecRoute>
             }/>
             </Routes>
           )}

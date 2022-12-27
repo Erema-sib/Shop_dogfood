@@ -10,8 +10,8 @@ import { EMAIL_REGEXP, PASSWORD_REGEXP, VLDT_CNF } from "../../Utils/regular";
 const PasswodrdRes = () => {
     const {register, handleSubmit, formState: { errors }} = useForm ({mode: "onBlur"})
    
-    const HzRegApi = (something) => {
-           console.log(something);
+    const HzRegApi = (data) => {
+           console.log(data);
     }
    
 

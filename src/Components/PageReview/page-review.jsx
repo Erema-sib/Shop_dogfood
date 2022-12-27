@@ -15,8 +15,8 @@ const PageReview = ({ title = "Отзыв о товаре", productId, setProduc
   const [rating, setRating] = useState(INITIAL_Value_RAT);
   const dispatch = useDispatch();
 
-  const sendReviewProduct = (data) => {
-    dispatch(fetchCreateReview({productId, data}))
+  const sendReviewProduct = (body) => {
+    dispatch(fetchCreateReview({productId, data: {...body, rating}}))
             .then(() => {
               reset();
               setRating(INITIAL_Value_RAT)

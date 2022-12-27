@@ -6,13 +6,17 @@ import Form from "../Form/form";
 import FormInput from "../FormInput/form-input";
 import Form_Button from "../Form_Button/form-button";
 import { EMAIL_REGEXP, PASSWORD_REGEXP, VLDT_CNF } from "../../Utils/regular";
+import "./style.css";
+import { userAuthantic } from "../../storage/user/userSlice";
+import { useDispatch } from "react-redux";
 
 
 const LoginComp = () => {
     const location = useLocation();
     const firstPath = location.state?.firstPath;
     const {register, handleSubmit, formState: { errors }} = useForm ({mode: "onBlur"})
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const hanndleOnclickResetBtn = (e) => {
         e.preventDefault();
@@ -24,9 +28,10 @@ const LoginComp = () => {
         navigate("/register", {replace: true, state:{bgLocation: location, firstPath}});
     }
 
-    const HzRegApi = (something) => {
-           console.log(something);
-    }
+    const HzRegApi = (data) => {
+        console.log(data);
+        dispatch(userAuthantic(data));
+ }
    
 
     const emailRegister = register("email", {
@@ -52,6 +57,7 @@ const LoginComp = () => {
     })
     
     return (
+        <div className="page-login">
         <Form
             title="Вход" handleFormSubmit={ handleSubmit(HzRegApi) }>
                 <FormInput
@@ -85,6 +91,7 @@ const LoginComp = () => {
                     <Form_Button type="submit" color="yellow">Войти</Form_Button>
                     <Form_Button color="white" type="button" onClick={hanndleOnclickRegistrBtn}>Регистрация</Form_Button>
                 </Form>
+        </div>
     )
 }
 

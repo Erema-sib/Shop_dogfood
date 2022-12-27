@@ -57,8 +57,10 @@
   }
 
   .link_btn:hover {
-    transform: scale(1.05);
     box-shadow: 0px 14px 28px rgba(0, 0, 0, 0.25), 0px 10px 10px rgba(0, 0, 0, 0.22);
+    background-color: #54c3ff;
+    background-position: 100% 0;
+    color:#fff;
   }
   
   a.link_btn {

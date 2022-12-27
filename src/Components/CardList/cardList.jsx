@@ -6,21 +6,20 @@ import "./style.css";
 
 const CardList = ({ cards }) => {
   const navigate = useNavigate();
-   //console.log(cards);
-   const loading = useSelector( state => state.products.loading)
+  const loading = useSelector( state => state.products.loading)
   return (
     <>
-      {!cards.length && !loading && (
+      {!cards.length && !loading && 
         <NotFound
           buttonText="Назад"
           title="По вашему запросу ничего не найдено"
           buttonAction={() => navigate(-1)}
         />
-      )}
+      }
       <div className="cards">
-        {cards.map((i, index) => (
+        {cards.map( (i, index) => 
           <Card key={i._id} {...i} />
-        ))}
+        )}
       </div>
     </>
   );
