@@ -1,3 +1,6 @@
+Проектная работа  "Интернет-магазин" по учебной программе "Frontend-разработка" , АНО ДПО «Корпоративный университет Сбербанка».
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
