@@ -11,7 +11,7 @@ export const CartPage = () => {
       <div className={s.contentCart}>
         <CartData />
         <CartList productsCart={productsCart} />
-        <CartAmount/>
+        <CartAmount />
       </div>
     </div>
   );

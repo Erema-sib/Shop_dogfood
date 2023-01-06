@@ -11,38 +11,38 @@
 }
 
 .price {
-    font-size: 1.75em;
-    line-height: 1.14;
-    font-weight: 800;
-    display: block;
+  font-size: 1.75em;
+  line-height: 1.14;
+  font-weight: 800;
+  display: block;
 }
 
 .priceDiscount {
-    color: #F44336;
+  color: #f44336;
 }
 
 .priceWrap {
-    position: relative;
-    padding-top: 1.2em;
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  position: relative;
+  padding-top: 1.2em;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bigPrice {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .smallPrice {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .left {
-    left: 0;
-    right: auto;
+  left: 0;
+  right: auto;
 }
 
 .right {
-    left: auto;
-    right: 0;
+  left: auto;
+  right: 0;
 }

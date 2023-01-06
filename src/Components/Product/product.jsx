@@ -42,10 +42,10 @@ export const Product = ({
   const discount_price = calcDiscountPrice(price, discount);
   const isLike = isLiked(likes, currentUser?._id);
   const descriptionHTML = createMarkup(description);
-  const {data: cartProducts} = useSelector(state => state.cart);
+  const { data: cartProducts } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  const productInCart =  checkProductCart(cartProducts, _id);
+  const productInCart = checkProductCart(cartProducts, _id);
 
   const levelRating = useMemo(
     () =>
@@ -121,8 +121,8 @@ export const Product = ({
             <div className="right">
               <h3 className="name">Международный сертификат качества.</h3>
               <p className="text">
-                Проверка качества в сертифицированных <span className="bold">SISSAC</span>{" "}
-                лабораториях.
+                Проверка качества в сертифицированных{" "}
+                <span className="bold">SISSAC</span> лабораториях.
               </p>
             </div>
           </div>

@@ -6,18 +6,14 @@
 // import Form_Button from "../Form_Button/form-button";
 import "./style.css";
 
-
-
-
 function Form({ title, handleFormSubmit, children }) {
-    
-    return (
-        <form className="form" onSubmit={handleFormSubmit}>
-            <h1 className="title">{title}</h1>
+  return (
+    <form className="form" onSubmit={handleFormSubmit}>
+      <h1 className="title">{title}</h1>
 
-             {children}
+      {children}
 
-            {/* <FormInput
+      {/* <FormInput
                     {...emailRegister}
                     id="email"
                     type="text"
@@ -62,11 +58,8 @@ function Form({ title, handleFormSubmit, children }) {
                 {["login", "registration"].includes(formType) &&
                  <Form_Button color="white" type="button" onClick={() => changeType(redirect)}>{button.redirect}</Form_Button>
                  } */}
-            
-        </form>
-    );
-};
-
-
+    </form>
+  );
+}
 
 export default Form;

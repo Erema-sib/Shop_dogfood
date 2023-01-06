@@ -1,7 +1,7 @@
 .filled {
-    fill: rgb(255, 0, 0);
+  fill: rgb(255, 0, 0);
 }
 
 .editable {
-    cursor: pointer;
+  cursor: pointer;
 }

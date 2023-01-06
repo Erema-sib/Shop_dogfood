@@ -5,16 +5,16 @@ import { useState } from "react";
 
 function Search({ onSubmit: propsonSubmit, onInput }) {
   const [inputText, setInputText] = useState("");
-  
+
   const handleInput = (e) => {
     setInputText(e.target.value);
     onInput && onInput(e.target.value);
-  }
-  
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     propsonSubmit(inputText);
-  }
+  };
 
   const handleClearInput = () => {
     setInputText("");

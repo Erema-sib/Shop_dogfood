@@ -11,18 +11,23 @@ import { useDispatch } from "react-redux";
 import { fetchCreateReview } from "../../storage/singleProduct/singleProductSlice";
 
 const PageReview = ({ title = "Отзыв о товаре", productId, setProduct }) => {
-  const {register, handleSubmit, formState: { errors }, reset} = useForm({ mode: "onBlur" });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ mode: "onBlur" });
   const [rating, setRating] = useState(INITIAL_Value_RAT);
   const dispatch = useDispatch();
 
   const sendReviewProduct = (body) => {
-    dispatch(fetchCreateReview({productId, data: {...body, rating}}))
-            .then(() => {
-              reset();
-              setRating(INITIAL_Value_RAT)
-            })
+    dispatch(fetchCreateReview({ productId, data: { ...body, rating } })).then(
+      () => {
+        reset();
+        setRating(INITIAL_Value_RAT);
+      }
+    );
   };
-
 
   const textReview = register("text", {
     required: {

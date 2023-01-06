@@ -5,7 +5,8 @@ export const fetchUser = createAsyncThunk(
   "user/fetchUser",
   async function (
     _,
-    { rejectWithValue, fulfillWithValue, dispatch, getState, extra: api }) {
+    { rejectWithValue, fulfillWithValue, dispatch, getState, extra: api }
+  ) {
     try {
       const data = await api.getUserInfo();
       return fulfillWithValue(data);
@@ -19,11 +20,12 @@ export const userAuthantic = createAsyncThunk(
   "user/userAuthantic",
   async function (
     dataAuth,
-    { rejectWithValue, fulfillWithValue, dispatch, getState, extra: api }) {
+    { rejectWithValue, fulfillWithValue, dispatch, getState, extra: api }
+  ) {
     try {
       const data = await api.authorize(dataAuth);
-      if(data.token) {
-        localStorage.setItem("token", JSON.stringify(data.token))
+      if (data.token) {
+        localStorage.setItem("token", JSON.stringify(data.token));
       } else {
         return rejectWithValue(data);
       }
@@ -39,7 +41,8 @@ export const userRegistr = createAsyncThunk(
   "user/userRegistr",
   async function (
     dataRegistr,
-    { rejectWithValue, fulfillWithValue, dispatch, getState, extra: api }) {
+    { rejectWithValue, fulfillWithValue, dispatch, getState, extra: api }
+  ) {
     try {
       const data = await api.register(dataRegistr);
       return fulfillWithValue(data);
@@ -54,21 +57,21 @@ export const userTokenCheck = createAsyncThunk(
   "user/userTokenCheck",
   async function (
     token,
-    { rejectWithValue, fulfillWithValue, dispatch, getState, extra: api }) {
+    { rejectWithValue, fulfillWithValue, dispatch, getState, extra: api }
+  ) {
     try {
       const data = await api.checkToken(token);
-      dispatch(authCheck())
-      dispatch(loggedIn())
+      dispatch(authCheck());
+      dispatch(loggedIn());
       return fulfillWithValue(data);
     } catch (error) {
       localStorage.clear();
       return rejectWithValue(error);
     } finally {
-      dispatch(authCheck())
+      dispatch(authCheck());
     }
   }
 );
-
 
 const initialState = {
   isAuthChecked: false,
@@ -85,15 +88,15 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     authCheck: (state) => {
-      state.isAuthChecked = true
+      state.isAuthChecked = true;
     },
     loggedIn: (state) => {
-      state.loggedIn = true
+      state.loggedIn = true;
     },
     logout: (state) => {
       state.data = null;
       localStorage.removeItem("token");
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -145,7 +148,6 @@ const userSlice = createSlice({
   },
 });
 
-export const {authCheck, logout, loggedIn} = userSlice.actions;
-
+export const { authCheck, logout, loggedIn } = userSlice.actions;
 
 export default userSlice.reducer;
