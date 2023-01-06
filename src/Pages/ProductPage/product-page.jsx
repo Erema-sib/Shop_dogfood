@@ -34,7 +34,8 @@ export const ProductPage = () => {
   return (
     <div className="container container_inner">
         <div className="content_cards">
-            {isLoading ? <Spinner/> : !errorState && <Product {...product} onProductLike={handleProductLike}/>}
+            {isLoading ? <Spinner/> : !errorState && <Product {...product}
+            allData={product} onProductLike={handleProductLike}/>}
             
             {!isLoading && errorState && <NotFound title="Ошибка запроса,попробуйте снова."/>}
             </div>

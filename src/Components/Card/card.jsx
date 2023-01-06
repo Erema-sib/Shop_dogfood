@@ -7,10 +7,11 @@ import { Link } from "react-router-dom";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChangeLikeProduct } from "../../storage/products/productsSlice";
+import { addCart } from "../../storage/cart/cartSlice";
 
 
 
-const Card = ({ name, price, _id, likes, discount, weight, description, pictures, tags }) => {
+const Card = ({ name, price, _id, likes, discount, weight, description, pictures, tags, allData }) => {
   
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.user.getRequest);
@@ -24,6 +25,12 @@ const Card = ({ name, price, _id, likes, discount, weight, description, pictures
       return dispatch(fetchChangeLikeProduct({_id, likes}))
     },[dispatch, _id, likes]);
   
+
+    const handleAddCartClick = useCallback(
+      (e) => {
+        e.preventDefault()
+        return dispatch(addCart(allData))
+      },[dispatch, allData]);
   
   return (
     <>
@@ -59,7 +66,7 @@ const Card = ({ name, price, _id, likes, discount, weight, description, pictures
 
                   </div>
                 </Link>
-                <a href="#" className="card_cart btn btn_type_primary">В корзину</a>
+                <a href="#" className="card_cart btn btn_type_primary" onClick={handleAddCartClick}>В корзину</a>
             </div>
         }     
     </>

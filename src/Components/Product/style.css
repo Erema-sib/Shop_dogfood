@@ -1,11 +1,3 @@
-/* .container {
-	max-width: 1024px;
-	padding-left: 16px;
-	padding-right: 16px;
-	width: 100%;
-	margin: 0 auto;
-} */
-
 .product {
 	display: flex;
 	margin-top: 23px;
@@ -178,7 +170,7 @@
 }
 
 .favoriteActive svg {
-	fill: #11ff00;
+	fill: #ff00a6;
 }
 
 @media (max-width: 1000px) {

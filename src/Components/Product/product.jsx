@@ -5,6 +5,7 @@ import {
   calcDiscountPrice,
   isLiked,
   createMarkup,
+  checkProductCart,
 } from "../../Utils/product_card";
 import "./style.css";
 import { ReactComponent as Save } from "./image/save.svg";
@@ -14,9 +15,17 @@ import { useMemo } from "react";
 import { ContentHeader } from "../ContentHeader/content-header";
 import { RatingStar } from "../RatingStar/rating";
 import PageReview from "../PageReview/page-review";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ButtonCount } from "../ButtonCount/button-count";
+import {
+  addCart,
+  addCartAfterChange,
+  decreaseByOne,
+  increaseByOne,
+} from "../../storage/cart/cartSlice";
 
 export const Product = ({
+  allData,
   onProductLike,
   pictures,
   likes = [],
@@ -29,11 +38,14 @@ export const Product = ({
   wight,
   _id,
 }) => {
-
-  const currentUser = useSelector(state => state.user.data);
+  const currentUser = useSelector((state) => state.user.data);
   const discount_price = calcDiscountPrice(price, discount);
   const isLike = isLiked(likes, currentUser?._id);
   const descriptionHTML = createMarkup(description);
+  const {data: cartProducts} = useSelector(state => state.cart);
+  const dispatch = useDispatch();
+
+  const productInCart =  checkProductCart(cartProducts, _id);
 
   const levelRating = useMemo(
     () =>
@@ -66,13 +78,26 @@ export const Product = ({
             </span>
           )}
           <div className="btnWrap">
-            <div className="left">
-              <button className="minus">-</button>
-              <span className="num">0</span>
-              <button className="plus">+</button>
-            </div>
-            <a href="#" className={cn("btn", "btn_type_primary", "cart")}>
-              В корзину
+            <ButtonCount
+              amount={productInCart.quantity}
+              decrement={() => dispatch(decreaseByOne(allData))}
+              increment={() => dispatch(increaseByOne(allData))}
+              countChange={(newQuantity) =>
+                dispatch(
+                  addCartAfterChange({ ...allData, quantity: newQuantity })
+                )
+              }
+            />
+
+            <a
+              href={`/cart?id=${_id}`}
+              className={cn("btn", "btn_type_primary", "cart")}
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(addCart(allData));
+              }}
+            >
+              {productInCart.exist ? "Добавлено" : "В корзину"}
             </a>
           </div>
           <button
@@ -96,7 +121,7 @@ export const Product = ({
             <div className="right">
               <h3 className="name">Международный сертификат качества.</h3>
               <p className="text">
-                Проверка качества в <span className="bold">SISSAC</span>{" "}
+                Проверка качества в сертифицированных <span className="bold">SISSAC</span>{" "}
                 лабораториях.
               </p>
             </div>
@@ -138,10 +163,7 @@ export const Product = ({
           </li>
         ))}
       </ul>
-      <PageReview
-        title={`Отзыв о товаре ${name}`}
-        productId={_id}
-      />
+      <PageReview title={`Отзыв о товаре ${name}`} productId={_id} />
     </div>
   );
 };

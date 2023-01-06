@@ -9,3 +9,13 @@ export const createMarkup = (textToHtml) => {
       __html: textToHtml
    }
 }
+
+export const checkProductCart = (cartProducts, _id) => {
+   const productCart = cartProducts.find(
+      (i) => i._id ===_id
+   )
+   if (productCart?.quantity) {
+      return {quantity: productCart.quantity, exist: true}
+   }
+   return {quantity:0, exist: false};
+}

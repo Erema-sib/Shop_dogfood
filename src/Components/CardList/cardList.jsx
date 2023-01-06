@@ -18,7 +18,7 @@ const CardList = ({ cards }) => {
       }
       <div className="cards">
         {cards.map( (i, index) => 
-          <Card key={i._id} {...i} />
+          <Card key={i._id} allData={i} {...i} />
         )}
       </div>
     </>

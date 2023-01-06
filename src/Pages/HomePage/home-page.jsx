@@ -44,7 +44,8 @@ const HomePage = () => {
                     title="Подарок за первый заказ" 
                     subtitle="Лёгкое говяжье - пластины"
                     backgr={banner_sale}
-                    colorBg="rgb(255, 143, 39)"/>
+                    colorBg="rgb(255, 143, 39)"
+                   />
 
         <BannerInfo extraClass="banner_middle"
                     title="Наборы"

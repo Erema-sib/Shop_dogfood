@@ -12,7 +12,7 @@ export const VLDT_CNF = {
 }
 
 
-export const INITIAL_Value_RAT = 0;
+export const INITIAL_Value_RAT = 1;
 
 export const SORTED = {
     LOW: "low",
