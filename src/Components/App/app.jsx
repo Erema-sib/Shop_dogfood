@@ -21,7 +21,7 @@ import PasswodrdRes from "../PasswordResettt/password-res";
 import HomePage from "../../Pages/HomePage/home-page";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../storage/products/productsSlice";
-import { fetchUser, userTokenCheck } from "../../storage/user/userSlice";
+import { userTokenCheck } from "../../storage/user/userSlice";
 import { LockProtecRoute } from "../LockProtecRoute/lock-route";
 import { CartPage } from "../../Pages/CartPage/cart-page";
 

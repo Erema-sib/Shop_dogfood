@@ -1,7 +1,13 @@
-import BannerInfo from "../../Components/BannerInfo/banner-info";
+
+import  BannerInfo  from "../../Components/BannerInfo/banner-info";
 import { ImgOnhead } from "../../Components/ImgOnhead/img-on-head";
 import banner_product from "./image/banner_2.jpg";
 import banner_sale from "./image/banner.jpg";
+import banner_product1 from "./image/banner_3.png";
+import s from "./index.module.css";
+
+
+
 
 const HomePage = () => {
   const goods = [
@@ -39,8 +45,9 @@ const HomePage = () => {
 
   return (
     <>
-      <ImgOnhead />
-      <BannerInfo
+      <ImgOnhead/>
+      <div className={s.banner_maket}>
+      <BannerInfo 
         extraClass="banner_big"
         title="Подарок за первый заказ"
         subtitle="Лёгкое говяжье - пластины"
@@ -56,6 +63,15 @@ const HomePage = () => {
         price="от 840 ₽"
         colorBg="#D8A217"
       />
+
+      <BannerInfo 
+          extraClass="banner_middle"
+					title="Различное"
+          subtitle="консервированное питание"
+					backgr={banner_product1}
+					colorBg="#30d9e5"
+			/>
+      </div>
     </>
   );
 };

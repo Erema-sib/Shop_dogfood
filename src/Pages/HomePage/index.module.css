@@ -1,0 +1,13 @@
+.banner_maket {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1024px;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin: -110px auto 10px;
+  position: relative;
+  margin-bottom: 0;
+}
+
+
